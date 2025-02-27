@@ -32,7 +32,7 @@ def generate_heatmap():
 
 # AI-powered pedestrian detection from video
 def generate_frames():
-    cap = cv2.VideoCapture("pedestrian_video.mp4")  # Use live feed if available
+    cap = cv2.VideoCapture("pedestrian_video.mp4")
     
     while cap.isOpened():
         success, frame = cap.read()
@@ -69,7 +69,6 @@ def index():
     heatmap_img = generate_heatmap()
     return render_template("index.html", heatmap_img=heatmap_img)
 
-# Video Feed Route
 @app.route("/video_feed")
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
