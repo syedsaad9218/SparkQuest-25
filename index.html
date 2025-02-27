@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Welcome to Flask App</h1>
+
+    <!-- Pedestrian Heatmap -->
+    <h2>Pedestrian Density Heatmap</h2>
+    <img src="data:image/png;base64,{{ heatmap_img }}" alt="Heatmap">
+
+    <!-- Live Video Feed -->
+    <h2>Live Video Feed</h2>
+    <img src="{{ url_for('video_feed') }}" width="600px">
+
+    <!-- IoT Sensor Simulation -->
+    <h2>IoT Sensor Status</h2>
+    <button onclick="fetchSensorData()">Activate Sensor</button>
+    <p id="sensor-status">Status: N/A</p>
+
+    <script>
+        function fetchSensorData() {
+            fetch('/sensor-activate')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("sensor-status").innerText = "Status: " + data.status;
+                });
+        }
+    </script>
+</body>
+</html>
